@@ -2,6 +2,7 @@
 import { Plus, ChevronDown, ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import RecentChats from './recent-chats';
 
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -28,13 +29,7 @@ export function Sidebar() {
             <Plus className="icon p-1.5 rounded-lg bg-[#553C9A] text-white" />
           </Button>
 
-          <Button
-            variant="outline"
-            className="justify-between bg-white font-rubik text-gray-900 text-xl hover:bg-gray-50 h-[54px] px-6 rounded-xl border-[#553C9A] shadow-sm"
-          >
-            Recent Chat
-            <ChevronDown className="icon p-1.5 rounded-lg bg-[#553C9A] text-white" />
-          </Button>
+          <RecentChats/>
         </div>
         </div>
       )}
