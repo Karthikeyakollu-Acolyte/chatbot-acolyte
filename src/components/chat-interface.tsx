@@ -39,10 +39,10 @@ export function ChatInterface() {
         }`}
       >
         <div className="flex flex-col items-center justify-center w-full h-full px-4 md:px-8 lg:px-16 text-center">
-          <h2 className="text-[2.5rem] font-rubik font-medium leading-tight mb-4 text-transparent bg-gradient-to-r from-[#8468D0] to-[#000000] bg-clip-text">
+          <h2 className="text-[3.5375rem] font-rubik font-medium leading-tight mb-4 text-transparent bg-gradient-to-r from-[#8468D0] to-[#000000] bg-clip-text">
             Hello, to be Doctor.
           </h2>
-          <p className="text-[1.75rem] font-rubik font-medium mb-8 text-transparent bg-gradient-to-r from-[#010101] to-[#38A169] bg-clip-text">
+          <p className="text-[3.5375rem] font-rubik font-medium mb-8 text-transparent bg-gradient-to-r from-[#010101] to-[#38A169] bg-clip-text">
             How can I be your companion
           </p>
 
@@ -58,16 +58,22 @@ export function ChatInterface() {
           </div>
         </div>
 
-        <div className="h-[76px] w-[1393px] px-3.5 py-[13px] mb-11 bg-white rounded-[15px] shadow-[0px_0.19090910255908966px_0.5727272629737854px_0px_rgba(0,0,0,0.11)] border-2 border-[#a69ac7] justify-between items-center inline-flex">
-          <div className="p-2.5 justify-start items-center gap-2.5 flex">
-            <div className="text-black text-2xl font-normal font-['Rubik'] leading-relaxed">Type a new message here</div>
-          </div>
-          <div className="justify-end items-center gap-5 flex">
-            <Image src={emojis}/>
-            <Image src={paperclip}/>
-            <Image src={send}/>
-          </div>
-        </div>
+        <div className="w-[1141px] h-[140px] flex flex-col px-3.5 py-[13px] mb-11 bg-white rounded-[15px] shadow-[0px_0.19090910255908966px_0.5727272629737854px_0px_rgba(0,0,0,0.11)] border-2 border-[#a69ac7] justify-between">
+  <div className="text-black text-2xl font-normal font-['Rubik'] flex justify-between leading-relaxed w-full">
+    <input 
+      type="text"
+      placeholder="Type a new message here"
+      className="bg-transparent border-none outline-none w-full placeholder-[#939393] focus:placeholder-transparent ml-2 mb-1"
+    />
+    <Image src={send} alt='' />
+  </div>
+  <div className='flex gap-5'>
+    <Image src={emojis} alt='' />
+    <Image src={paperclip} alt='' />
+  </div>
+</div>
+
+
       </div>
 
       <div
