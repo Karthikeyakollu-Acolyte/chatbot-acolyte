@@ -58,19 +58,20 @@ export function ChatInterface() {
           </div>
         </div>
 
-        <div className="w-[1141px] h-[140px] flex flex-col px-3.5 py-[13px] mb-11 bg-white rounded-[15px] shadow-[0px_0.19090910255908966px_0.5727272629737854px_0px_rgba(0,0,0,0.11)] border-2 border-[#a69ac7] justify-between">
+        <div className="w-[1393px] h-[76px] flex flex-col px-3.5 py-[13px] mb-11 bg-white rounded-[15px] shadow-[0px_0.19090910255908966px_0.5727272629737854px_0px_rgba(0,0,0,0.11)] border-2 border-[#a69ac7] justify-between">
   <div className="text-black text-2xl font-normal font-['Rubik'] flex justify-between leading-relaxed w-full">
     <input 
       type="text"
       placeholder="Type a new message here"
-      className="bg-transparent border-none outline-none w-full placeholder-[#939393] focus:placeholder-transparent ml-2 mb-1"
+      className="bg-transparent border-none outline-none placeholder-[#939393] focus:placeholder-transparent ml-2 mb-1"
     />
+     <div className='flex gap-5'>
     <Image src={send} alt='' />
-  </div>
-  <div className='flex gap-5'>
     <Image src={emojis} alt='' />
-    <Image src={paperclip} alt='' />
+    <Image src={paperclip} alt=''/>
   </div>
+  </div>
+ 
 </div>
 
 
