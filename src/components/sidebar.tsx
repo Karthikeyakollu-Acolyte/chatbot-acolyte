@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import RecentChats from './recent-chats';
 
-export function Sidebar() {
+interface SidebarProps {
+  resetChat: () => void;
+}
+
+export function Sidebar({ resetChat }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -19,18 +23,21 @@ export function Sidebar() {
     >
       {isOpen && (
         <div>
-        <h2 className='text-center text-xl pb-5 mb-5 p-1'>Pdf Name</h2>
-        <div className="w-[359px] flex flex-col gap-10">
-          <Button
-            className="justify-between hover:border-2 bg-white font-rubik text-gray-900 text-xl hover:bg-gray-50 h-[54px] px-6 rounded-xl border border-[#553C9A] shadow-sm"
-            variant={'default'}
-          >
-            New Chat
-            <Plus className="icon p-1.5 rounded-lg bg-[#553C9A] text-white" />
-          </Button>
+          <h2 className='text-center text-xl pb-5 mb-5 p-1'>Pdf Name</h2>
+          <div className="w-[359px] flex flex-col gap-10">
+            <Button
+              className="justify-between hover:border-2 bg-white font-rubik text-gray-900 text-xl hover:bg-gray-50 h-[54px] px-6 rounded-xl border border-[#553C9A] shadow-sm"
+              variant={'default'}
+              onClick={() => {
+                resetChat(); // Reset chat on new chat click
+              }}
+            >
+              New Chat
+              <Plus className="icon p-1.5 rounded-lg bg-[#553C9A] text-white" />
+            </Button>
 
-          <RecentChats/>
-        </div>
+            <RecentChats />
+          </div>
         </div>
       )}
 
