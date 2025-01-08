@@ -9,7 +9,7 @@ import paperclip from '../../public/paperclip.svg';
 import send from '../../public/send.svg';
 import { motion } from 'framer-motion';
 import { TextGenerateEffect } from "./ui/text-generate-effect";
-
+import Markdown from 'react-markdown'
 interface Message {
   id: number;
   text: string;
@@ -47,7 +47,42 @@ export function ChatInterface() {
 
   useEffect(scrollToBottom, [messages]); // Scroll to bottom when messages change
 
-  const handleSendMessage = () => {
+
+
+
+  // Sending this request to folder api/models/route.ts file
+
+
+  async function getModelResponse(question: string) {
+    try {
+      const response = await fetch('/api/model', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Ensure content is sent as JSON
+        },
+        body: JSON.stringify({
+          question: question, // Send the dynamic question to the backend
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.data) {
+        // Print the model response content (assuming the response structure is the same)
+        console.log('Model Response Content:', result.data.choices[0]?.message?.content);
+        return result.data.choices[0]?.message?.content
+      } else {
+        console.error('Error:', result.error);
+        return result.error
+      }
+    } catch (error) {
+      console.error('Request failed:', error);
+      return `Request failed:, ${error}`
+    }
+  }
+
+
+  const handleSendMessage = async () => {
     if (inputMessage.trim() === '') return;
 
     const newMessage: Message = {
@@ -62,24 +97,31 @@ export function ChatInterface() {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setInputMessage('');
 
-    // Simulate bot response
-    setTimeout(() => {
-      const botResponse: Message = {
-        id: Date.now(),
-        text: `I'm a simulated response to The log should provide more details about what exactly caused the error. Look for additional lines that describe what was happening before the EBUSY error. There could be useful context about file locks, processes in use, or other underlying issues.: "${dummy}"`,
-        sender: 'acolyte',
-        name: 'Acolyte',
-        avatar: '', // Example bot avatar path
-        time: new Date().toLocaleTimeString(), // Get the current time
-      };
-      setMessages((prevMessages) => [...prevMessages, botResponse]);
-    }, 1000);
+   
+  const response = await getModelResponse(inputMessage)
+
+    const botResponse: Message = {
+      id: Date.now(),
+      text: response,
+      sender: 'acolyte',
+      name: 'Acolyte',
+      avatar: '', // Example bot avatar path
+      time: new Date().toLocaleTimeString(), // Get the current time
+    };
+    setMessages((prevMessages) => [...prevMessages, botResponse]);
   };
+
+
+
 
   const resetChat = () => {
     setMessages([]);
     setInputMessage('');
   };
+
+
+
+
 
   return (
     <div className="flex flex-1 flex-col items-center w-full h-[991px] bg-[#F9FAFB] relative">
@@ -122,11 +164,10 @@ export function ChatInterface() {
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
-                  className={`mb-4 p-4 rounded-lg shadow-md relative ${
-                    message.sender === "user"
-                      ? "bg-blue-100 text-right ml-auto max-w-[80%]"
-                      : "bg-gray-100 text-left mr-auto max-w-[80%]"
-                  }`}
+                  className={`mb-4 p-4 rounded-lg shadow-md relative ${message.sender === "user"
+                    ? "bg-blue-100 text-right ml-auto max-w-[80%]"
+                    : "bg-gray-100 text-left mr-auto max-w-[80%]"
+                    }`}
                   style={{
                     maxWidth: '70%',
                     width: 'fit-content',
@@ -154,7 +195,13 @@ export function ChatInterface() {
                   </div>
 
                   {/* Message content */}
-                  <TextGenerateEffect words={message.text} />
+              
+                    
+                    <TextGenerateEffect words={message.text} />
+                    
+             
+                  
+
                 </motion.div>
               ))}
               <div ref={messagesEndRef} />
